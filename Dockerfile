@@ -7,7 +7,7 @@ COPY .mvn .mvn
 COPY pom.xml .
 COPY src src
 
-RUN ./mvnw package -DskipTests
+RUN chmod +x ./mvnw && ./mvnw package -DskipTests
 
 ARG JAR_FILE=target/*.jar
 
