@@ -37,4 +37,4 @@ jobs:
       - name: análise estática
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn sonar:sonar -Dsonar.projectKey=alanlopesdev_repo-alura-docker
+        run: mvn org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=alanlopesdev_repo-alura-docker
