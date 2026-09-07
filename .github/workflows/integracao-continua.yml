@@ -32,7 +32,9 @@ jobs:
   
       - name: Executa testes unitários
         run: mvn -B verify
+      - name: Gerar relatório de análise
+        run: mvn jacoco:prepare-agent verify
       - name: análise estática
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=alanlopesdev_repo-alura-docker
+        run: mvv sonar:sonar -Dsonar.projectKey=alanlopesdev_repo-alura-docker
