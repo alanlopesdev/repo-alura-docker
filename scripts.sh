@@ -1,6 +1,6 @@
 #! /bin/bash
 docker load -i ecr_project_alura.tar
-mv docker-compose-prod.yaml docker-compose-yaml
+mv docker-compose-prod.yaml docker-compose.yaml
 containers_id=$(docker ps -q)
 if [ -z "$container_ids" ]; then
   echo "Não há containers em execução"
