@@ -38,3 +38,11 @@ jobs:
           chmod 600 deploy_key.pem
 
           docker save -o ecr_project_alura.tar ecr_project_alura_api
+
+          scp -o StrictHostKeyChecking=no -i deploy_key.pem ecr_project_alura.tar $USER@$HOST:/home/ubuntu/
+          scp -o StrictHostKeyChecking=no -i deploy_key.pem init.sql $USER@$HOST:/home/ubuntu/
+          scp -o StrictHostKeyChecking=no -i deploy_key.pem docker-compose-prod.yaml $USER@$HOST:/home/ubuntu/
+          scp -o StrictHostKeyChecking=no -i deploy_key.pem script-deploy.sh $USER@$HOST:/home/ubuntu/  
+          
+          ssh -i deploy_key.pem $USER@$HOST "chmod +x script-deploy.sh && ./script-deploy.sh"
+
