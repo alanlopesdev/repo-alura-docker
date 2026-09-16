@@ -37,7 +37,7 @@ jobs:
           echo "$PRIVATE_KEY" > deploy_key.pem
           chmod 600 deploy_key.pem
 
-          docker save -o ecr_project_alura.tar ecr_project_alura_api
+          docker save -o ecr_project_alura.tar repo-alura-docker_api
 
           scp -o StrictHostKeyChecking=no -i deploy_key.pem ecr_project_alura.tar $USER@$HOST:/home/ubuntu/
           scp -o StrictHostKeyChecking=no -i deploy_key.pem init.sql $USER@$HOST:/home/ubuntu/
