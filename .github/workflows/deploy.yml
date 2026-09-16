@@ -1,0 +1,40 @@
+name: CD/Alan
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  deploy:
+  
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      - name: Configura JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Configura Docker Compose
+        run: |
+          sudo rm -f /usr/local/bin/docker-compose
+          curl -L https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+          docker-compose --version
+          
+      - name: Roda Docker Compose
+        run: docker-compose up -d
+
+      - name: Deploy EC2
+        env:
+          PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
+          USER: ubuntu
+          HOST: 34.229.144.77
+        run: |
+          echo "$PRIVATE_KEY" > deploy_key.pem
+          chmod 600 deploy_key.pem
+
+          docker save -o ecr_project_alura.tar ecr_project_alura_api
