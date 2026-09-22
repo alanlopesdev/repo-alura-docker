@@ -32,7 +32,7 @@ jobs:
         env:
           PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
           USER: ubuntu
-          HOST: 34.229.144.77
+          HOST: 18.204.228.207
         run: |
           echo "$PRIVATE_KEY" > deploy_key.pem
           chmod 600 deploy_key.pem
